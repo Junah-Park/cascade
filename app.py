@@ -4,7 +4,32 @@ from flask import Flask
 from flask import render_template
 from flask import jsonify
 app = Flask(__name__)
-DATABASE = '/path/to/database.db'
+
+DATABASE = 'database/database.db'
+# def get_db():
+#     db = getattr(Flask, '_database', None)
+#     if db is None:
+#         db = Flask._database = sqlite3.connect(DATABASE)
+#     return db
+
+
+
+
+# def create_db():
+#     with sqlite3.connect(DATABASE) as connection:
+#         c = connection.cursor()
+#         c.execute("""DROP TABLE IF EXISTS songs;""")
+#         table = """CREATE TABLE test(
+#             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             name TEXT NOT NULL
+#         );
+#         """
+#         c.execute(table)
+#         c.close()
+#     return True
+def db_conn():
+    with sqlite3.connect(DATABASE) as connection:
+        return connection
 
 @app.route('/')
 def index():
@@ -15,18 +40,16 @@ def hello():
     return render_template("public/next.html")
 
 
-def get_db():
-    db = getattr(Flask, '_database', None)
-    if db is None:
-        db = Flask._database = sqlite3.connect(DATABASE)
-    return db
+
 
 @app.route('/test', methods=['GET','POST'])
 def test():
     data = "failure"
     if request.method == 'GET' or request.method == 'POST':
-        print("my first post!")
-        data = "success"
+        # create_db()
+        db_conn().cursor().execute('INSERT INTO test (name) VALUES("testname")')
+        data="success"
+        print("yay")
     return jsonify(data)
 
 @app.teardown_appcontext
