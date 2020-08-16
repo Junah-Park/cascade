@@ -1,8 +1,5 @@
 import sqlite3
-from flask import request
-from flask import Flask
-from flask import render_template
-from flask import jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 app = Flask(__name__)
 
 DATABASE = 'database/database.db'
@@ -41,6 +38,22 @@ def index():
 def hello():
     return render_template("public/next.html")
 
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == "POST":
+        user = request.form["nm"]
+        return redirect(url_for("user", usr=user))
+    else:
+        return render_template("public/login.html")
+# def my_form_post():
+#     text = request.form['u']
+#     processed_text = text.upper()
+#     return processed_text
+
+@app.route('/<usr>')
+def user(usr):
+    return f"<h1>{usr}</h1>"
+
 @app.route('/test', methods=['GET','POST'])
 def test():
     data = "failure"
@@ -58,3 +71,6 @@ def close_connection(exception):
     db = getattr(Flask, '_database', None)
     if db is not None:
         db.close()
+
+if __name__ == "__main__":
+    app.run(debug=True)
