@@ -1,0 +1,19 @@
+{
+  "name": "cascade",
+  "version": "1.0.0",
+  "description": "A 3d asset sharing platform. Viewing assets in mixed reality is free. Support artists through easy payment features. Treat 3d models like images on an image sharing site. Easy request button for using the asset in a project.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Junah-Park/cascade.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Junah-Park/cascade/issues"
+  },
+  "homepage": "https://github.com/Junah-Park/cascade#readme"
+}
